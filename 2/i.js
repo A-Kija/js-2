@@ -71,10 +71,25 @@ if (check < 5) {
 
 console.log('Ate!');
 
-let r1 = rand(0, 4);
-let r2 = rand(0, 4);
+
 
 
 
 if (2 < 5 && 6 < 9) {} //1 && 1 => true
 if (2 < 5 || 6 < 9) {} // 0 || 1 , 1 || 0 => true
+
+
+
+
+//1
+
+let r1 = rand(0, 4);
+let r2 = rand(0, 4);
+
+if (r1 * r2 == 0) {
+    console.log('dalyba iš nulio');
+} else if (r1 < r2) {
+    console.log(r2 / r1);
+} else {
+    console.log(r1 / r2)
+}
