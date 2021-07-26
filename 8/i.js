@@ -1,7 +1,7 @@
 // kopūstas, bulvė
 
-// let darzove = 'kopūstas';
-let darzove = 'bulvė';
+let darzove = 'kopūstas';
+// let darzove = 'bulvė';
 // let darzove = 'pomidoras';
 // let darzove = 888;
 
@@ -23,13 +23,13 @@ console.log('_______________________________________________');
 switch (darzove) {
     case 'kopūstas':
         console.log('Verdam kopūstiene');
-
+        break;
     case 'bulvė':
         console.log('Kepam bulvinius blynus');
-
+        break;
     case 'pomidoras':
         console.log('Darom kečupą');
-
+        break;
     default:
         console.log('Nieko nedarom');
 }
@@ -37,6 +37,11 @@ switch (darzove) {
 
 console.log('_______________________________________________');
 
+function rand(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // S, M, L, XL
 
@@ -44,12 +49,32 @@ let siuntinioDydis = 'M';
 switch (siuntinioDydis) {
     case 'S':
         console.log('Ar yra laisvų S');
+        if (rand(0, 3)) {
+            console.log('Vietų nėra');
+        } else {
+            break;
+        }
     case 'M':
         console.log('Ar yra laisvų  M');
+        if (rand(0, 3)) {
+            console.log('Vietų nėra');
+        } else {
+            break;
+        }
+
     case 'L':
         console.log('Ar yra laisvų  L');
+        if (rand(0, 3)) {
+            console.log('Vietų nėra');
+        } else {
+            break;
+        }
+
     default:
         console.log('Ar yra laisvų  XL');
+        if (rand(0, 3)) {
+            console.log('Visai visai vietų nėra');
+        }
 }
 
 
@@ -107,3 +132,11 @@ do {
 } while (++skaicius % 23 !== 0);
 
 console.log('while', skaicius);
+
+let sk = 7;
+let c = 858;
+let iki = 777 - sk;
+
+do {} while (iki-- && (++sk % 7 || --c)); // žvaigždių karams.
+
+console.log(sk);
