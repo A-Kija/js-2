@@ -140,3 +140,31 @@ let iki = 777 - sk;
 do {} while (iki-- && (++sk % 7 || --c)); // žvaigždių karams.
 
 console.log(sk);
+
+
+console.log('_______________________________________________');
+
+for (let i = 1; i <= 11; i++) {
+
+
+    if (i === 5) {
+        continue;
+    }
+
+
+    console.log('ciklo nr:', i);
+
+    // continue
+}
+
+// break
+
+// Kad console.log spausdintų visus skaičius, kurie nesidalina iš 3 (su continue)
+// Kad spausdinimas nutrūktų kai i yra daugiau nei 40 (su break)
+
+
+for (let i = 1; i <= 111; i++) {
+
+
+
+}
