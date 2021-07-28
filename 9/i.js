@@ -105,3 +105,21 @@ console.log(zod.substr(-5, 4), 'substr nuo -5, 4');
 */
 let b = 8798798798;
 console.log(b.toString(2));
+
+let nu = 5.53178;
+
+console.log(Math.round(nu * 100) / 100);
+console.log(Math.floor(nu));
+console.log(Math.ceil(nu));
+
+console.log((0.1 + 0.2).toFixed(5));
+
+console.log(parseInt('10.550px55'));
+console.log(parseFloat('10.555465456px55'));
+
+
+function rand(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
