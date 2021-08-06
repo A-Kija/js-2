@@ -1,0 +1,8 @@
+.super {
+    padding: 5px;
+    display: inline-block;
+    color: aquamarine;
+    letter-spacing: 2px;
+    border: 1px solid aquamarine;
+    border-radius: 50%;
+}
