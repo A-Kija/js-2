@@ -48,6 +48,6 @@ console.log(kaDaryt(5, 5));
 const m = ['V', 'U', 'A', 'A', 'R', 'A', 'B'];
 
 
-const mp = mas => mas.map(e => e == 'A' ? 'Z' : e);
+const mp = mas => mas.map(e => e == 'A' ? 'Z' : e); 
 
 console.log(mp(m));
