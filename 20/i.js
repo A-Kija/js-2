@@ -103,13 +103,13 @@ String.prototype.labas = function() {
 
 console.log('%c Oh my heavens! ', 'background: #ff0000; color: #ffffff; margin:200px;');
 
-for (let i = 1; i < 10; i++) {
-    this.alert('valio');
-    this.confirm('valio');
-}
+// for (let i = 1; i < 10; i++) {
+//     this.alert('valio');
+//     this.confirm('valio');
+// }
 
 
 
-a.labas();
+// a.labas();
 
-b.labas();
+// b.labas();
