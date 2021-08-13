@@ -28,8 +28,8 @@ const z2 = {
 
 class Zmogus {
 
-    constructor() {
-        this.vardas = null;
+    constructor(taip, kitas) {
+        this.vardas = taip;
         // this.getName = this.getName.bind(this);
     }
 
@@ -43,7 +43,7 @@ class Zmogus {
 
 }
 
-const z1 = new Zmogus();
+const z1 = new Zmogus('Anatalija');
 
 z1.setName('Anatolija');
 z2.setName('Anatolija');
@@ -57,3 +57,7 @@ addEventListener('click', z1.getName);
 
 document.querySelector('button').
 addEventListener('click', duok);
+
+
+const mas = [];
+mas.push(new Animal('Zebras', 36, 'black-white', false));
