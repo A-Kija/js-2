@@ -57,7 +57,7 @@ class TV {
         this.kanalas = nr;
     }
     infoApieTv() {
-        console.log(this.constructor.name)
+        console.log([this.constructor.name])
         console.log(
             `
             Savininkas: ${this.savininkas} 
