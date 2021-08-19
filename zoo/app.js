@@ -8,6 +8,7 @@ class Animal {
         this.buttonCreate();
         this.buttonHideModal();
         this.buttonEdit();
+        this.buttonConfirmDelete();
         //Laikinai
         // Animal.createAnimal('Arklys', 50, 'orange', false);
         // Animal.createAnimal('Ruonis', 0, 'grey', false);
@@ -136,6 +137,14 @@ class Animal {
         });
     }
 
+    static buttonConfirmDelete() {
+        document.querySelector('#confirm-delete .btn-primary').
+        addEventListener('click', (e) => {
+            this.deleteAnimal(e.target.dataset.id);
+            this.hideModal('confirm-delete');
+        });
+    }
+
     static buttonHideModal() {
         document.querySelectorAll('[data-dismiss=modal]')
             .forEach(b => b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id)));
@@ -201,6 +210,7 @@ class Animal {
             .addEventListener('click', () => this.constructor.showDeleteConfirmModal(this.id));
         //this.constructor == Animal Class
     }
+
 
     editButton() {
         this.element.querySelector('.btn-success')
