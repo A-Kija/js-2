@@ -6,6 +6,8 @@ class Animal {
 
     static start() {
         this.buttonCreate();
+        this.buttonHideModal();
+        this.buttonEdit();
         //Laikinai
         // Animal.createAnimal('Arklys', 50, 'orange', false);
         // Animal.createAnimal('Ruonis', 0, 'grey', false);
@@ -25,6 +27,21 @@ class Animal {
             }
         });
         this.save();
+    }
+
+    static editAnimal(id, specie, tailLong, color, hasHorn) {
+        this.animals.forEach(animal => {
+            if (id == animal.id) {
+                this.clearZoo();
+                animal.specie = specie;
+                animal.tail = tailLong;
+                animal.color = color;
+                animal.horn = hasHorn;
+                this.renderZoo();
+            }
+        });
+        this.save();
+        this.hideModal('edit');
     }
 
     static createAnimal(specie, tailLong, color, hasHorn) {
@@ -64,15 +81,64 @@ class Animal {
         this.animals.forEach(animal => document.querySelector('#animals').removeChild(animal.element));
     }
 
+    static showEditModal(animal) {
+        const modal = document.querySelector('#edit');
+        modal.style.display = 'block';
+        modal.style.opacity = 1;
+        modal.querySelector('.btn-primary').dataset.id = animal.id;
+
+        const specie = document.querySelector('#edit [name=specie]');
+        const tail = document.querySelector('#edit [name=tail]');
+        const color = document.querySelector('#edit [name=color]');
+        const horn = document.querySelector('#edit [name=horn]');
+
+        specie.value = animal.specie;
+        tail.value = animal.tail;
+        color.value = animal.color;
+        horn.checked = animal.horn;
+
+
+    }
+
+    static showDeleteConfirmModal(id) {
+        const modal = document.querySelector('#confirm-delete');
+        modal.style.display = 'block';
+        modal.style.opacity = 1;
+        modal.querySelector('.btn-primary').dataset.id = id;
+    }
+
+    static hideModal(id) {
+        const modal = document.querySelector('#' + id);
+        modal.style.display = 'none';
+        modal.style.opacity = 0;
+        delete modal.querySelector('.btn-primary').dataset.id;
+    }
+
     static buttonCreate() {
-        const specie = document.querySelector('#specie');
-        const tail = document.querySelector('#tail');
-        const color = document.querySelector('#color');
-        const horn = document.querySelector('#horn');
+        const specie = document.querySelector('#create [name=specie]');
+        const tail = document.querySelector('#create [name=tail]');
+        const color = document.querySelector('#create [name=color]');
+        const horn = document.querySelector('#create [name=horn]');
         document.querySelector('button#create').
         addEventListener('click', () => {
             this.createAnimal(specie.value, tail.value, color.value, horn.checked);
         });
+    }
+
+    static buttonEdit() {
+        const specie = document.querySelector('#edit [name=specie]');
+        const tail = document.querySelector('#edit [name=tail]');
+        const color = document.querySelector('#edit [name=color]');
+        const horn = document.querySelector('#edit [name=horn]');
+        document.querySelector('.modal .btn-primary').
+        addEventListener('click', (e) => {
+            this.editAnimal(e.target.dataset.id, specie.value, tail.value, color.value, horn.checked);
+        });
+    }
+
+    static buttonHideModal() {
+        document.querySelectorAll('[data-dismiss=modal]')
+            .forEach(b => b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id)));
     }
 
 
@@ -89,6 +155,7 @@ class Animal {
         this.createAnimalElement();
         this.createAnimalHtml();
         this.deleteButton(); // butono eventas
+        this.editButton(); // butono eventas
     }
 
 
@@ -123,9 +190,21 @@ class Animal {
         this.id = Math.floor(Math.random() * 9000000) + 1000000;
     }
 
+    // deleteButton() {
+    //     this.element.querySelector('.btn-danger')
+    //         .addEventListener('click', () => this.constructor.deleteAnimal(this.id));
+    //     //this.constructor == Animal Class
+    // }
+
     deleteButton() {
         this.element.querySelector('.btn-danger')
-            .addEventListener('click', () => this.constructor.deleteAnimal(this.id));
+            .addEventListener('click', () => this.constructor.showDeleteConfirmModal(this.id));
+        //this.constructor == Animal Class
+    }
+
+    editButton() {
+        this.element.querySelector('.btn-success')
+            .addEventListener('click', () => this.constructor.showEditModal(this));
         //this.constructor == Animal Class
     }
 
