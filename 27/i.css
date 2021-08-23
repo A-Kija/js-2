@@ -1,0 +1,39 @@
+:root {
+    --colr: rgb(190, 179, 16);
+    --line: 3px solid var(--colr);
+}
+
+#line {
+    width: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+#line .part {
+    box-sizing: border-box;
+    width: 20px;
+    height: 200px;
+    position: relative;
+    border-top: var(--line);
+    border-left: var(--line);
+}
+
+#line .part span {
+    font-size: 16px;
+    display: inline-block;
+    position: absolute;
+    left: 23px;
+    top: -10px;
+    font-weight: bold;
+    color: var(--colr);
+}
+
+.ball {
+    position: absolute;
+    top: 400px;
+    left: 400px;
+    width: 100px;
+    height: 100px;
+    border: var(--line);
+    border-radius: 50%;
+}
