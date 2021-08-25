@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Zoo</title>
+    <style>
+        #animals {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .modal-body .card {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="create" class="container">
+        <div class="row">
+            <div class="col-6">
+                <div class="card m-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Create new Animal</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><h6>Specie</h6></label>
+                                    <input type="text" name="specie" class="form-control" placeholder="Specie">
+                                    <small class="form-text text-muted">Enter animal specie "Crocodile" etc.</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><h6>Color</h6></label>
+                                    <input type="text" name="color" class="form-control" placeholder="Color">
+                                    <small class="form-text text-muted">Enter animal color "Dark green" etc.</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label><h6>Tail</h6></label>
+                                    <input type="text" name="tail" class="form-control" placeholder="Tail">
+                                    <small class="form-text text-muted">How long is tail in cm.</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group form-check">
+                                    <h6 style="margin-left:-20px;">Horn</h6>
+                                    <input type="checkbox" name="horn" class="form-check-input mt-4" id="check1">
+                                    <label class="form-check-label" style="margin-top:18px;" for="check1">Has horn</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="create" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card m-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Sorting</h5>
+
+                                <div class="row mt-5">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <button type="button" id="sort_specie" class="btn btn-primary">By Specie</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <button type="button" id="sort_tail_long" class="btn btn-primary">By Tail</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group form-check" style="margin-bottom: 0;">
+                                            <input type="radio" name="sort_dir" class="form-check-input" id="sort_asc" style="margin-top:13px;" checked>
+                                            <label class="form-check-label" style="margin-top:8px; margin-right: 40px;" for="sort_asc">ASC</label>
+                                            <input type="radio" name="sort_dir" class="form-check-input" style="margin-top:13px;" id="sort_desc">
+                                            <label class="form-check-label" style="margin-top:8px;" for="sort_desc">DESC</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+
+
+                        <div class="card m-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Filtering</h5>
+
+                                <div class="row mt-5">
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <button type="button" id="filter" class="btn btn-primary">Filter</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <button type="button" id="all" class="btn btn-primary">Show All</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <select class="form-control" id="animals_list">
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div id="animals"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Edit Modal -->
+    <div id="edit" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Animal</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label><h6>Specie</h6></label>
+                                                    <input type="text" name="specie" class="form-control" placeholder="Specie">
+                                                    <small class="form-text text-muted">Enter animal specie "Crocodile" etc.</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label><h6>Color</h6></label>
+                                                    <input type="text" name="color" class="form-control" placeholder="Color">
+                                                    <small class="form-text text-muted">Enter animal color "Dark green" etc.</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label><h6>Tail</h6></label>
+                                                    <input type="text" name="tail" class="form-control" placeholder="Tail">
+                                                    <small class="form-text text-muted">How long is tail in cm.</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group form-check">
+                                                    <h6 style="margin-left:-20px;">Horn</h6>
+                                                    <input type="checkbox" name="horn" class="form-check-input mt-4" id="check1">
+                                                    <label class="form-check-label" style="margin-top:18px;" for="check1">Has horn</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Confirm Delete Modal -->
+    <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    Do you really want to delete animal?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
