@@ -1,6 +1,7 @@
 class Animal {
 
     static animals = []; // Visi gyvuliai ir žvėrys
+    static filterSet;
 
     element; // nuoroda į html tagą su animalu
 
@@ -9,12 +10,15 @@ class Animal {
         this.buttonHideModal();
         this.buttonEdit();
         this.buttonConfirmDelete();
-        //Laikinai
+        this.sortButton();
+        this.filterButton();
+        this.showAllButton();
+        // Laikinai
         // Animal.createAnimal('Arklys', 50, 'orange', false);
         // Animal.createAnimal('Ruonis', 0, 'grey', false);
         // Animal.createAnimal('Briedis', 10, 'mixed brown', true);
         // Animal.createAnimal('Stumbras', 15, 'dark-wood', true);
-        //Laikinai pabaiga
+        // Laikinai pabaiga
 
         this.load();
     }
@@ -24,10 +28,10 @@ class Animal {
             if (id == animal.id) {
                 this.clearZoo();
                 this.animals.splice(index, 1);
-                this.renderZoo();
             }
         });
         this.save();
+        this.renderZoo();
     }
 
     static editAnimal(id, specie, tailLong, color, hasHorn) {
@@ -38,24 +42,25 @@ class Animal {
                 animal.tail = tailLong;
                 animal.color = color;
                 animal.horn = hasHorn;
-                this.renderZoo();
             }
         });
         this.save();
+        this.renderZoo();
         this.hideModal('edit');
     }
 
     static createAnimal(specie, tailLong, color, hasHorn) {
         this.clearZoo(); // iš html'o ištrinam visus gyvulius
-        this.animals.push(new Animal(specie, tailLong, color, hasHorn));
-        this.renderZoo(); // iš naujo sudedame visus gyvulius į html'ą
+        this.animals.unshift(new Animal(specie, tailLong, color, hasHorn));
         this.save();
+        this.renderZoo(); // iš naujo sudedame visus gyvulius į html'ą
+
     }
 
     static save() {
         const data = [];
         this.animals.forEach(animal => {
-            data.push({
+            data.unshift({
                 specie: animal.specie,
                 tail: animal.tail,
                 color: animal.color,
@@ -63,6 +68,7 @@ class Animal {
             })
         });
         localStorage.setItem('zooApp', JSON.stringify(data));
+        this.makeFilterSet();
     }
 
     static load() {
@@ -72,14 +78,18 @@ class Animal {
         JSON.parse(localStorage
                 .getItem('zooApp'))
             .forEach(animal => this.createAnimal(animal.specie, animal.tail, animal.color, animal.horn));
+
     }
 
     static renderZoo() {
         this.animals.forEach(animal => animal.render());
+        this.filterSelect();
     }
 
     static clearZoo() {
-        this.animals.forEach(animal => document.querySelector('#animals').removeChild(animal.element));
+        // this.animals.forEach(animal => document.querySelector('#animals').removeChild(animal.element));
+        document.querySelector('#animals').innerHTML = '';
+        this.clearFilterSelect();
     }
 
     static showEditModal(animal) {
@@ -107,6 +117,81 @@ class Animal {
         modal.style.opacity = 1;
         modal.querySelector('.btn-primary').dataset.id = id;
     }
+
+    static showSorted(id) {
+
+        const dir = document.querySelector('#sort_asc').checked ? 1 : -1;
+        if ('sort_tail_long' == id) {
+            this.animals.sort(function(a, b) {
+                return dir * (a.tail - b.tail);
+            });
+        }
+
+        if ('sort_specie' == id) {
+            this.animals.sort(function(a, b) {
+                const nameA = a.specie.toUpperCase(); // ignore upper and lowercase
+                const nameB = b.specie.toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -dir;
+                }
+                if (nameA > nameB) {
+                    return dir;
+                }
+                // names must be equal
+                return 0;
+            });
+        }
+        this.clearZoo(); // iš html'o ištrinam visus gyvulius
+        this.renderZoo(); // iš naujo sudedame visus gyvulius į html'ą
+
+    }
+
+    static showFiltered() {
+        const filterValue = document.querySelector("#animals_list").value;
+        const an = [];
+        this.animals.forEach((animal, i) => {
+            if (animal.specie == filterValue) {
+                an.push(animal);
+            }
+        });
+        this.animals = an;
+        this.clearZoo();
+        this.renderZoo();
+        document.querySelectorAll('#animals button').forEach(b => {
+            b.setAttribute('disabled', true);
+        })
+    }
+
+    static rerender = () => {
+        this.clearZoo(); // iš html'o ištrinam visus gyvulius
+        this.renderZoo(); // iš naujo sudedame visus gyvulius į html'ą
+    }
+
+    static makeFilterSet() {
+        this.filterSet = new Set();
+        this.animals.forEach(animal => this.filterSet.add(animal.specie));
+        this.filterSet = new Set([...this.filterSet].sort());
+    }
+
+
+    static filterSelect() {
+        if (undefined === this.filterSet) {
+            return;
+        }
+        const select = document.querySelector('#animals_list');
+        this.filterSet.forEach(a => {
+            const element = document.createElement('option');
+            element.innerText = a;
+            element.value = a;
+            select.appendChild(element);
+        });
+    }
+
+    static clearFilterSelect() {
+        document.querySelector('#animals_list').innerHTML = '';
+    }
+
+
 
     static hideModal(id) {
         const modal = document.querySelector('#' + id);
@@ -148,6 +233,26 @@ class Animal {
     static buttonHideModal() {
         document.querySelectorAll('[data-dismiss=modal]')
             .forEach(b => b.addEventListener('click', (e) => this.hideModal(e.target.closest('.modal').id)));
+    }
+
+    static sortButton() {
+        document.querySelectorAll('#sort_specie, #sort_tail_long')
+            .forEach(b => {
+                b.addEventListener('click', e => this.showSorted(e.target.id))
+            });
+    }
+
+    static filterButton() {
+        document.querySelector('#filter').
+        addEventListener('click', (e) => this.showFiltered());
+    }
+
+    static showAllButton() {
+        document.querySelector('#all').
+        addEventListener('click', (e) => {
+            this.animals = [];
+            this.load();
+        });
     }
 
 
