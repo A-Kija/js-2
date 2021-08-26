@@ -31,6 +31,20 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+input {
+    width: 250px;
+    height: 44px;
+    font-size: 20px;
+    font-family: 'Staatliches', cursive;
+    letter-spacing: 5px;
+    background: #ffc421;
+    border: 2px solid black;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+    transition: 500ms;
+    outline: none;
+    text-align: center;
+}
+
 button {
     width: 150px;
     height: 50px;
@@ -104,4 +118,27 @@ button:focus {
     border: 1px solid teal;
     padding: 4px;
     text-align: right;
+}
+
+.table {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    background-color: transparent;
+    color: teal;
+    box-sizing: border-box;
+    border: 1px solid teal;
+    padding: 4px;
+    text-align: center;
+    font-size: 26px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+h6 {
+    margin: 5px;
+    font-size: 40px;
 }

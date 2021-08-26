@@ -42,22 +42,31 @@ class Burbulai {
     static w;
     static h;
     static startButton = document.querySelector('button#start');
-
+    static nameInput = document.querySelector('input#gamer');
     static timerDiv = document.querySelector('.timer');
+    static tableUl = document.querySelector('ul');
     static timeStart;
     static clockId;
+    static gamer;
+    static table;
 
     static start() {
-        document.querySelector('body').addEventListener('click', () => this.naujasBurbulas());
+
         this.ekranoDydis();
         this.burbulai = new Map();
+        this.load();
+        this.displayTable();
 
         this.startButton.addEventListener('click', e => {
             e.stopPropagation();
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 1; i++) {
                 setTimeout(this.naujasBurbulas, this.rand(1, 2000));
             }
+            document.querySelector('body').addEventListener('click', this.naujasBurbulas);
             this.startButton.style.display = 'none';
+            this.nameInput.style.display = 'none';
+
+            this.gamer = this.nameInput.value;
             this.timeStart = new Date();
             this.clockId = setInterval(this.doTick, 100);
         });
@@ -92,19 +101,41 @@ class Burbulai {
         document.querySelector('body').removeChild(b.element); // trynimas iš htmlo
         this.burbulai.delete(b.id); // trynimas iš mapo
         clearTimeout(this.timerId);
-        const tic = new Date();
-        const time = tic.getTime() - this.timeStart.getTime();
-        const sec = Math.floor(time / 1000);
-        const sec1 = Math.floor((time - (sec * 1000)) / 10);
-        this.timerDiv.innerText = sec + ':' + sec1;
         if (this.burbulai.size === 0) {
             this.gameEnd();
         }
     }
 
     static gameEnd() {
-        this.startButton.style.display = 'block';
+        const tic = new Date();
+        const time = tic.getTime() - this.timeStart.getTime();
+        const sec = Math.floor(time / 1000);
+        const sec1 = Math.floor((time - (sec * 1000)) / 10);
+        this.timerDiv.innerText = sec + ':' + sec1;
+        this.startButton.style.display = 'inline-block';
+        this.nameInput.style.display = 'inline-block';
+        document.querySelector('body').removeEventListener('click', this.naujasBurbulas);
         clearTimeout(this.clockId);
+        this.table.push({ name: this.gamer, score: sec + ':' + sec1, time: time });
+        this.table.sort((a, b) => a.time - b.time);
+        localStorage.setItem('ballApp', JSON.stringify(this.table.slice(0, 5)));
+        this.table = this.table.slice(0, 5);
+        this.displayTable();
+    }
+
+    static load() {
+        if (null === localStorage.getItem('ballApp')) {
+            localStorage.setItem('ballApp', JSON.stringify([]));
+        }
+        this.table = JSON.parse(localStorage.getItem('ballApp'));
+    }
+
+    static displayTable() {
+        let html = '';
+        this.table.forEach(g => {
+            html += `<li><b>${g.name}</b> ${g.score}</li>`;
+        })
+        this.tableUl.innerHTML = html;
     }
 
     constructor() {
