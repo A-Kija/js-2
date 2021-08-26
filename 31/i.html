@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script src="i.js" defer></script>
+    <title>Swiper</title>
+    <style>
+        .swiper {
+            width: 600px;
+            height: 300px;
+            background-color: brown;
+        }
+        
+        .sl {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .sl1 {
+            background-color: gold;
+        }
+        
+        .sl2 {
+            background-color: indigo
+        }
+        
+        .sl3 {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Slider main container -->
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <div class="sl sl1"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="sl sl2"></div>
+            </div>
+            <div class="swiper-slide">
+                <div class="sl sl3"></div>
+            </div>
+        </div>
+        <!-- If we need pagination -->
+        <!-- <div class="swiper-pagination"></div> -->
+
+        <!-- If we need navigation buttons -->
+        <!-- <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div> -->
+
+        <!-- If we need scrollbar -->
+        <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+
+</body>
+
+</html>

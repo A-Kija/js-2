@@ -41,19 +41,35 @@ class Burbulai {
     static burbulai;
     static w;
     static h;
+    static startButton = document.querySelector('button#start');
+
+    static timerDiv = document.querySelector('.timer');
+    static timeStart;
+    static clockId;
 
     static start() {
         document.querySelector('body').addEventListener('click', () => this.naujasBurbulas());
         this.ekranoDydis();
         this.burbulai = new Map();
-        const startButton = document.querySelector('button#start');
-        startButton.addEventListener('click', e => {
+
+        this.startButton.addEventListener('click', e => {
             e.stopPropagation();
             for (let i = 1; i <= 5; i++) {
                 setTimeout(this.naujasBurbulas, this.rand(1, 2000));
             }
-            startButton.style.display = 'none';
+            this.startButton.style.display = 'none';
+            this.timeStart = new Date();
+            this.clockId = setInterval(this.doTick, 100);
         });
+    }
+
+
+    static doTick = () => {
+        const tic = new Date();
+        const time = tic.getTime() - this.timeStart.getTime();
+        const sec = Math.floor(time / 1000);
+        const sec1 = Math.floor((time - (sec * 1000)) / 100);
+        this.timerDiv.innerText = sec + ':' + sec1;
     }
 
     static naujasBurbulas = () => {
@@ -75,6 +91,20 @@ class Burbulai {
     static pagautas(b) {
         document.querySelector('body').removeChild(b.element); // trynimas iš htmlo
         this.burbulai.delete(b.id); // trynimas iš mapo
+        clearTimeout(this.timerId);
+        const tic = new Date();
+        const time = tic.getTime() - this.timeStart.getTime();
+        const sec = Math.floor(time / 1000);
+        const sec1 = Math.floor((time - (sec * 1000)) / 10);
+        this.timerDiv.innerText = sec + ':' + sec1;
+        if (this.burbulai.size === 0) {
+            this.gameEnd();
+        }
+    }
+
+    static gameEnd() {
+        this.startButton.style.display = 'block';
+        clearTimeout(this.clockId);
     }
 
     constructor() {
