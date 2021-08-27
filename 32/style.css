@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+    padding: 50px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.books {
+    padding: 10px;
+    border: 1px solid hotpink;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 30px;
+}
+
+.books div {
+    margin: 10px;
+    padding: 10px;
+}
+
+.books div.no-cover {
+    background-color: transparent;
+}
+
+.books div.pink-cover {
+    background-color: hotpink;
+}
+
+.books div.yellow-cover {
+    background-color: yellowgreen;
+}
