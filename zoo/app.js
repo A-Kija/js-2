@@ -151,6 +151,7 @@ class Animal {
     static showFiltered() {
         const filterValue = document.querySelector("#animals_list").value;
         const an = [];
+        this.showAnimals = this.animals.slice();
         this.showAnimals.forEach((animal, i) => {
             if (animal.specie == filterValue) {
                 an.push(animal);
