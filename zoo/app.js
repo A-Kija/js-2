@@ -1,6 +1,7 @@
 class Animal {
 
     static animals = []; // Visi gyvuliai ir žvėrys
+    static showAnimals = []; // Visi RODOMI gyvuliai ir žvėrys
     static filterSet;
 
     element; // nuoroda į html tagą su animalu
@@ -28,6 +29,7 @@ class Animal {
             if (id == animal.id) {
                 this.clearZoo();
                 this.animals.splice(index, 1);
+                this.showAnimals = this.animals.slice();
             }
         });
         this.save();
@@ -52,6 +54,7 @@ class Animal {
     static createAnimal(specie, tailLong, color, hasHorn) {
         this.clearZoo(); // iš html'o ištrinam visus gyvulius
         this.animals.unshift(new Animal(specie, tailLong, color, hasHorn));
+        this.showAnimals = this.animals.slice();
         this.save();
         this.renderZoo(); // iš naujo sudedame visus gyvulius į html'ą
 
@@ -78,11 +81,10 @@ class Animal {
         JSON.parse(localStorage
                 .getItem('zooApp'))
             .forEach(animal => this.createAnimal(animal.specie, animal.tail, animal.color, animal.horn));
-
     }
 
     static renderZoo() {
-        this.animals.forEach(animal => animal.render());
+        this.showAnimals.forEach(animal => animal.render());
         this.filterSelect();
     }
 
@@ -149,17 +151,17 @@ class Animal {
     static showFiltered() {
         const filterValue = document.querySelector("#animals_list").value;
         const an = [];
-        this.animals.forEach((animal, i) => {
+        this.showAnimals.forEach((animal, i) => {
             if (animal.specie == filterValue) {
                 an.push(animal);
             }
         });
-        this.animals = an;
+        this.showAnimals = an;
         this.clearZoo();
         this.renderZoo();
-        document.querySelectorAll('#animals button').forEach(b => {
-            b.setAttribute('disabled', true);
-        })
+        // document.querySelectorAll('#animals button').forEach(b => {
+        //     b.setAttribute('disabled', true);
+        // })
     }
 
     static rerender = () => {

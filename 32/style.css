@@ -36,3 +36,14 @@ body {
 .books div.yellow-cover {
     background-color: yellowgreen;
 }
+
+h3 {
+    margin: 5px;
+}
+
+i,
+b,
+small {
+    display: block;
+    margin: 3px 5px;
+}
