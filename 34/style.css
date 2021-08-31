@@ -1,0 +1,15 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: pink;
+    margin: 0;
+}
+
+.square {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    box-shadow: 5px 5px 15px 5px #ffff;
+    background-color: paleturquoise;
+    cursor: grab;
+}
