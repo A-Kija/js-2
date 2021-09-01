@@ -14,7 +14,7 @@ const mas3 = [889, 52, 698, 752, 9333, 7];
 const mas4 = ['Agurkas', 'Bananas', 'arbūzas', 'Bebras', 'Voverė', 'Ąžuolas', 'Mažas triušis'];
 
 //5. Duotas stringas, suskaičiuoti kiek stringe yra raidžių z
-const str1 = 'Storas zebras, bėga nuo zuulu genties nedžiotojų.';
+const str1 = 'Storas zebras, bėga nuo zuulu genties medžiotojų.';
 
 //6. Duotas Setas, į kurį reikia pridėti reikšmes (stringus) 'Labas' ir 'Ate' ir console.log
 // atspausdinti Seto ilgį
@@ -28,3 +28,6 @@ const str2 = 'Ku ku';
 //8. Duotas objektas, kurį reikia iteruoti, kiekvienoje iteracijoje išvedant savybę
 // ir jos reikšmę
 const obj1 = { labas: 'vakaras', laba: 'diena', labs: 'ryts' };
+
+//9. Sukurti klasę Grybas. Klasėje sukurti savybė tipas. Iš klasės sukurti
+// 3 Grybo objektus, savybei tipas priskiriant "Baravykas", "Ūmedė" ir "Lepšis"
