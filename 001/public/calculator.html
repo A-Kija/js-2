@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="app.css">
     <script src="app.js"></script>
-    <title>DOMINOS</title>
+    <title>Calculator</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-header">
-                        Add new Dominos
+                        NODE BASED CALCULATOR
                     </div>
                     <div class="card-body">
                         <div class="row justify-content-center">
@@ -30,40 +30,26 @@
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="left">
-                                    <small>Left number</small>
+                                    <input type="text" class="form-control" id="d1">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <select class="form-control" id="action">
+                                      <option>+</option>
+                                      <option>-</option>
+                                      <option>X</option>
+                                      <option>/</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="right">
-                                    <small>Right number</small>
+                                    <input type="text" class="form-control" id="d2">
                                 </div>
                             </div>
                             <div class="col-3">
-                                <button type="button" id="add-new" class="btn btn-info">Add</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-header">
-                        All Dominos
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-8">
-                                <div class="dominos">
-
-                                </div>
+                                <button type="button" class="btn btn-info">Calc!</button>
                             </div>
                         </div>
                     </div>

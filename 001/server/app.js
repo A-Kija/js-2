@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const port = 3003
+const mysql = require('mysql')
 
 app.use(cors())
 
@@ -9,6 +10,18 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(express.json());
+
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "domino"
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
 
 
 //Route
@@ -67,6 +80,43 @@ app.post('/calculator', (req, res) => {
         errMsg: errMsg
     })
 })
+
+
+
+app.post('/dominos/add', (req, res) => {
+    const sql = `
+        INSERT INTO
+        dices
+        (left_side, right_side)
+        VALUES (?, ?)
+    `;
+    con.query(sql, [req.body.left, req.body.right], err => {
+        if (err) throw err;
+        console.log("1 record inserted");
+    });
+    res.json({
+        msg: 'OK',
+    })
+});
+
+
+app.get('/dominos', (req, res) => {
+    const sql = `
+        SELECT * 
+        FROM dices
+    `;
+    con.query(sql, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        res.json({
+            msg: 'OK',
+            dominos: result
+        })
+    })
+})
+
+
 
 
 
